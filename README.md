@@ -1,6 +1,6 @@
 # XJ-SORM
 
-#### AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
+#### An AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
 
 #### This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
 
