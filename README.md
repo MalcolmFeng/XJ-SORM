@@ -2,9 +2,9 @@
 
 #### AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
 
-#### This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project #### based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
+#### This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
 
-#### It can connect a database you appointed,load all tables in the db(or the tables you appointed) to the memory,and automatically #### create the code in your module which you can appoint,such as Bean Controller Service Dao and Mapper.
+#### It can connect a database you appointed,load all tables in the db(or the tables you appointed) to the memory,and automatically  create the code in your module which you can appoint,such as Bean Controller Service Dao and Mapper.
 
 #### The following is a little tutorial help you start quickly.
     
