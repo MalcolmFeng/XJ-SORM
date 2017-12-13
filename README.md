@@ -8,7 +8,7 @@ It can connect a database you appointed,load all tables in the db(or the tables 
 The following is a little tutorial help you start quickly.
     
 If you want to create all module's code in all tables in db, you can write the following code:
-
+------------------------------------------------------------------------------------------------
     import core.TableContext;
     public class Test {
       public static void main(String[] args) {
@@ -77,8 +77,3 @@ If you want to create the module you appointed and all tables in db, you can wri
         System.out.println("Create finished.");
       }
     }
-
-
-    
-    add something   aaaaaa
-
