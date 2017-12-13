@@ -1,14 +1,15 @@
 # XJ-SORM
-AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
 
-This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
+####AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
 
-It can connect a database you appointed,load all tables in the db(or the tables you appointed) to the memory,and automatically create the code in your module which you can appoint,such as Bean Controller Service Dao and Mapper.
+####This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project ####based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
 
-The following is a little tutorial help you start quickly.
+####It can connect a database you appointed,load all tables in the db(or the tables you appointed) to the memory,and automatically ####create the code in your module which you can appoint,such as Bean Controller Service Dao and Mapper.
+
+####The following is a little tutorial help you start quickly.
     
-If you want to create all module's code in all tables in db, you can write the following code:
-------------------------------------------------------------------------------------------------
+#####If you want to create all module's code in all tables in db, you can write the following code:
+
     import core.TableContext;
     public class Test {
       public static void main(String[] args) {
@@ -20,7 +21,7 @@ If you want to create all module's code in all tables in db, you can write the f
     }
    
    
-If you want to create all module's code in the tables you appointed, you can write the following code:
+#####If you want to create all module's code in the tables you appointed, you can write the following code:
 
     import core.TableContext;
     public class Test {
@@ -32,7 +33,7 @@ If you want to create all module's code in the tables you appointed, you can wri
       }
     }
 
-If you want to create the module you appointed and all tables in db, you can write  the following code:
+#####If you want to create the module you appointed and all tables in db, you can write  the following code:
 
     import java.util.Map;
 
