@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * 连接池
+ * 数据库连接池
  * @author Malcolm
  *
  */

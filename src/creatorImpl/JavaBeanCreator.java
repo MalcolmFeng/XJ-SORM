@@ -1,4 +1,4 @@
-package creator;
+package creatorImpl;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import core.TypeConvertor;
 import utils.StringUtils;
 
 /**
- * 封装了java文件（源代码）常用的操作。
+ * 生成javabean
  * @author Malcolm
  *
  */
@@ -40,12 +40,19 @@ public class JavaBeanCreator extends JavaCreator{
 		
 		Map<String, ColumnInfo> columns = tableInfo.getColumns();
 		
-		//遍历所有的字段，进行 field get set 代码拼接。
+		//遍历所有的字段，进行 field 代码拼接。
 		for(ColumnInfo columnInfo:columns.values()){
 			//进行类型转换
 			String javaFieldType = typeConvertor.databaseType2JavaType(columnInfo.getDataType());
 			//代码拼接
 			javaSrc.append("\tprivate "+javaFieldType+" "+columnInfo.getName()+";\n");
+		}
+		
+		//遍历所有的字段，进行 get set 代码拼接。
+		for(ColumnInfo columnInfo:columns.values()){
+			//进行类型转换
+			String javaFieldType = typeConvertor.databaseType2JavaType(columnInfo.getDataType());
+			//代码拼接
 			javaSrc.append("\tpublic "+javaFieldType+" get"+StringUtils.changeFirstToUpper(columnInfo.getName())+"(){\n");		
 			javaSrc.append("\t\treturn "+columnInfo.getName()+";\n");
 			javaSrc.append("\t}\n");
@@ -53,7 +60,6 @@ public class JavaBeanCreator extends JavaCreator{
 			javaSrc.append("\t\tthis."+columnInfo.getName()+"="+columnInfo.getName()+";\n");
 			javaSrc.append("\t}\n\n");
 		}
-		
 		//类结束
 		javaSrc.append("}");
 	}

@@ -33,26 +33,43 @@ public abstract class JavaCreator {
 		//声明所在包
 		javaSrc.append("package com."+DBManager.conf.getCompanyName()+"."+DBManager.conf.getProjectName()+"."+ module.toLowerCase() +";\n\n");
 		
-		//导入所需jar包
+		//导包
 		importPackageSrcCreator(tableInfo,javaSrc);
 		
-		//类的声明
+		//类模块声明
 		declareateModule(tableInfo,javaSrc);
 		
-		//类
+		//整个类及其内部
 		inclassSrc(tableInfo,javaSrc,typeConvertor);
 
-		
-
 		String src = javaSrc.toString();
-		
 		FileCreator.createFile(tableInfo, module, suffix, src);
 	}
 
+	/**
+	 * 生成声明模块src的方法
+	 * eg：@Controller  
+	 * eg：@Service
+	 * 
+	 * @param tableInfo 表信息
+	 * @param javaSrc 拼接src的StringBuffer
+	 */
 	public abstract void declareateModule(TableInfo tableInfo,StringBuilder javaSrc);
 	
+	/**
+	 * 生成导入包的src的方法
+	 * 
+	 * @param tableInfo 表信息
+	 * @param javaSrc 拼接src的StringBuffer
+	 */
 	public abstract void importPackageSrcCreator(TableInfo tableInfo,StringBuilder javaSrc);
 
+	/**
+	 * 生成类的src的方法
+	 * 
+	 * @param tableInfo 表信息
+	 * @param javaSrc 拼接src的StringBuffer
+	 */
 	public abstract void inclassSrc(TableInfo tableInfo,StringBuilder javaSrc,TypeConvertor typeConvertor);
 
 }

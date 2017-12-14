@@ -1,4 +1,4 @@
-package creator;
+package creatorImpl;
 
 import bean.TableInfo;
 import core.DBManager;
@@ -7,7 +7,7 @@ import core.TypeConvertor;
 import utils.StringUtils;
 
 /**
- * 封装了java文件（源代码）常用的操作。
+ * 生成Controller java文件
  * @author Malcolm
  *
  */

@@ -13,15 +13,15 @@ import utils.StringUtils;
 public abstract class XMLMapperCreator {
 	
 	protected TableInfo tableInfo;
-	protected String add;
-	protected String update;
-	protected String queryRows;
-	protected String queryList;
-	protected String queryAll;
-	protected String delete;
+	protected Boolean add;
+	protected Boolean update;
+	protected Boolean queryRows;
+	protected Boolean queryList;
+	protected Boolean queryAll;
+	protected Boolean delete;
+	protected XMLMapperCreator xmlMapperCreator;
 	
-	public XMLMapperCreator(TableInfo tableInfo,String add,String update,String queryRows,String queryAll,String queryList,String delete) {
-		this.tableInfo = tableInfo;
+	public XMLMapperCreator(Boolean add,Boolean update,Boolean queryRows,Boolean queryAll,Boolean queryList,Boolean delete) {
 		this.add = add;
 		this.update = update;
 		this.queryRows = queryRows;
@@ -30,6 +30,21 @@ public abstract class XMLMapperCreator {
 		this.delete = delete;
 	}
 	
+	public XMLMapperCreator(TableInfo tableInfo,Boolean add,Boolean update,Boolean queryRows,Boolean queryAll,Boolean queryList,Boolean delete) {
+		this(add,update,queryRows,queryAll,queryList,delete);
+		this.tableInfo = tableInfo;
+	}
+	
+	public XMLMapperCreator(TableInfo tableInfo,XMLMapperCreator xmlMapperCreator) {
+		this.tableInfo = tableInfo;
+		this.xmlMapperCreator = xmlMapperCreator;
+	}
+	
+	
+	/**
+	 * 生成Mapper的头
+	 * @return
+	 */
 	public String createXMLHeaderSrc() {
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -38,11 +53,18 @@ public abstract class XMLMapperCreator {
 		return sBuffer.toString();
 	}
 	
+	/**
+	 * 生成Mapper的尾
+	 * @return
+	 */
 	public String createXMLFooterSrc() {
 		return "</mapper>";
 	}
 	
-	
+	/**
+	 * 生成ResultMap
+	 * @return
+	 */
 	public String createResultMapSrc(){
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append("\t<resultMap id=\""+ tableInfo.getTname()+ "\" type=\"com."+ DBManager.conf.getCompanyName() +"."+ DBManager.conf.getProjectName() +".bean."+ StringUtils.changeFirstToUpper( tableInfo.getTname() ) +"Bean\" >\n");
@@ -56,6 +78,10 @@ public abstract class XMLMapperCreator {
     		return sBuffer.toString();
 	}
 	
+	/**
+	 * 生成所有列字段名
+	 * @return
+	 */
 	public String createBASEALLCOLUMESrc(){
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append("\t<sql id=\"Base_Column_List\">\n");
@@ -68,45 +94,85 @@ public abstract class XMLMapperCreator {
 		return all.substring(0,all.length()-2)+"\n\t</sql>\n";
 	}
 	
+	/**
+	 * 生成add方法
+	 * @return
+	 */
 	public abstract String createAddSrc();
 	
+	/**
+	 * 生成Update方法
+	 * @return
+	 */
 	public abstract String createUpdateSrc();
 
+	/**
+	 * 生成QueryRows方法
+	 * @return
+	 */
 	public abstract String createQueryRowsSrc();
 	
+	/**
+	 * 生成QueryList方法
+	 * @return
+	 */
 	public abstract String createQueryListSrc();
 	
+	/**
+	 * 生成QueryAll方法
+	 * @return
+	 */
 	public abstract String createQueryAllSrc();
 	
+	/**
+	 * 生成Delete方法
+	 * @return
+	 */
 	public abstract String createDeleteSrc();
 	
+	/**
+	 * 生成Src源码
+	 * @return
+	 */
 	public String createSrc() {
 		StringBuffer sBuffer = new StringBuffer();
 		sBuffer.append(createXMLHeaderSrc());
 		
 		sBuffer.append(createResultMapSrc());
 		sBuffer.append(createBASEALLCOLUMESrc());
-		if (add!=null) {
+		if (add) {
 			sBuffer.append(createAddSrc());
 		}
-		if (update!=null) {
+		if (update) {
 			sBuffer.append(createUpdateSrc());
 		}
-		if (queryRows!=null) {
+		if (queryRows) {
 			sBuffer.append(createQueryRowsSrc());
 		}
-		if (queryList!=null) {
+		if (queryList) {
 			sBuffer.append(createQueryListSrc());
 		}
-		if (queryAll!=null) {
+		if (queryAll) {
 			sBuffer.append(createQueryAllSrc());
 		}
-		if (delete!=null) {
+		if (delete) {
 			sBuffer.append(createDeleteSrc());
 		}
 		sBuffer.append(createXMLFooterSrc());
 		
 		return sBuffer.toString();
+	}
+	
+	/**
+	 * 生成 xml mapper 文件
+	 * @param tableInfo
+	 */
+	public void createXMLFile(TableInfo tableInfo) {
+		String module = "Mapper";
+		String suffix = "xml";
+		String src = createSrc();
+		
+		FileCreator.createFile(tableInfo, module, suffix, src);
 	}
 	
 }

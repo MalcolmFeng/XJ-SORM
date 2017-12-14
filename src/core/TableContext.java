@@ -10,12 +10,12 @@ import java.util.Map;
 
 import bean.ColumnInfo;
 import bean.TableInfo;
-import convertor.MysqlTypeConvertor;
-import creator.JavaBeanCreator;
-import creator.JavaControllerCreator;
-import creator.JavaDaoCreator;
-import creator.JavaServiceCreator;
-import creator.XMLMapperCreatorMySQL;
+import convertorImpl.MysqlTypeConvertor;
+import creatorImpl.JavaBeanCreator;
+import creatorImpl.JavaControllerCreator;
+import creatorImpl.JavaDaoCreator;
+import creatorImpl.JavaServiceCreator;
+import creatorImpl.XMLMapperCreatorMySQL;
 import utils.StringUtils;
 
 /**
@@ -25,12 +25,15 @@ import utils.StringUtils;
  */
 public class TableContext {
 	
+	/**
+	 *存放所有表信息的Map
+	 */
 	public static Map<String,TableInfo> tables = new HashMap<String,TableInfo>();
-	public static Map<Class,TableInfo> poClassTableMap = new HashMap<Class,TableInfo>();
+	public static Map<Class,TableInfo> beanClassTableMap = new HashMap<Class,TableInfo>();
 	
 	/**
 	 * 加载所有数据库信息 将表结构 生成类结构
-	 * @param table
+	 * @param table 要加载的表名 不定参数，可以为空
 	 */
 	public  void loadDB(String... table) {  
 		try {
@@ -85,46 +88,80 @@ public class TableContext {
 		}
 	}
 
+	
+	/**
+	 * 生成文件
+	 * @param typeConvertor
+	 * @param modules 需要生成的模块
+	 */
+	public void createAppointedModuleFiles(TypeConvertor typeConvertor ,XMLMapperCreator xmlMapperCreator, String... modules) {
+		for(TableInfo tableInfo:tables.values()){
+			
+			//如果没有传，生成所有模块的代码文件
+			if (modules.length==0) {
+				//Bean模块代码生成
+				JavaBeanCreator javaBeanCreator = new JavaBeanCreator(tableInfo, typeConvertor, "Bean","java");
+				javaBeanCreator.createJavaFile();
+				
+				//Dao模块代码生成
+				JavaDaoCreator javaDaoCreator = new JavaDaoCreator(tableInfo, typeConvertor, "Dao","java");
+				javaDaoCreator.createJavaFile();
+				
+				//Service模块代码生成
+				JavaServiceCreator javaServiceCreator = new JavaServiceCreator(tableInfo, typeConvertor, "Service","java");
+				javaServiceCreator.createJavaFile();
+				
+				//Controller模块代码生成
+				JavaControllerCreator javaControllerCreator = new JavaControllerCreator(tableInfo, typeConvertor, "Controller","java");
+				javaControllerCreator.createJavaFile();
+				
+				//Mapper代码生成
+				XMLMapperCreator xmlMapperCreatorIn = new XMLMapperCreatorMySQL(tableInfo, xmlMapperCreator);
+				xmlMapperCreator.createXMLFile(tableInfo);
+				
+				continue;
+			}
+			
+			//如果传了参数，则，生成响应的模块
+			for (int i = 0; i < modules.length; i++) {
+				String string = modules[i];
+				if (string.equals("Bean")) {
+					//Bean模块代码生成
+					JavaBeanCreator javaBeanCreator = new JavaBeanCreator(tableInfo, typeConvertor, "Bean","java");
+					javaBeanCreator.createJavaFile();
+				}else if(string.equals("Dao")) {
+					//Dao模块代码生成
+					JavaDaoCreator javaDaoCreator = new JavaDaoCreator(tableInfo, typeConvertor, "Dao","java");
+					javaDaoCreator.createJavaFile();
+				}else if(string.equals("Service")) {
+					//Service模块代码生成
+					JavaServiceCreator javaServiceCreator = new JavaServiceCreator(tableInfo, typeConvertor, "Service","java");
+					javaServiceCreator.createJavaFile();
+				}else if(string.equals("Controller")) {
+					//Controller模块代码生成
+					JavaControllerCreator javaControllerCreator = new JavaControllerCreator(tableInfo, typeConvertor, "Controller","java");
+					javaControllerCreator.createJavaFile();
+				}else if(string.equals("XML")){
+					//Mapper代码生成
+					XMLMapperCreatorMySQL xmlMapperCreatorMySQL = new XMLMapperCreatorMySQL(tableInfo, null, null, null, null, null, null);
+					xmlMapperCreatorMySQL.createXMLFile(tableInfo);
+				}
+			}
+		}
+	}
+	
+	
 	/**
 	 * 将po包的所有类都加载生成Class对象。
 	 */
 	public static void loadPoFile(){
 		for(TableInfo tableInfo:tables.values()){
 			try {
-				Class c = Class.forName(DBManager.conf.getPoPackage()+"."+StringUtils.changeFirstToUpper(tableInfo.getTname()));//包名.类名
-				poClassTableMap.put(c, tableInfo);
+				Class c = Class.forName("com."+ DBManager.conf.getCompanyName() +"."+ DBManager.conf.getProjectName() +".bean."+ StringUtils.changeFirstToUpper(tableInfo.getTname()));//包名.类名
+				beanClassTableMap.put(c, tableInfo);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-	
-	/**
-	 * 根据表结构在PO包中更新相应的javabean
-	 */
-	public void createAllFiles() {
-		for(TableInfo tableInfo:tables.values()){
-			
-			//Bean模块代码生成
-			JavaBeanCreator javaBeanCreator = new JavaBeanCreator(tableInfo, new MysqlTypeConvertor(), "Bean","java");
-			javaBeanCreator.createJavaFile();
-			
-			//Dao模块代码生成
-			JavaDaoCreator javaDaoCreator = new JavaDaoCreator(tableInfo, new MysqlTypeConvertor(), "Dao","java");
-			javaDaoCreator.createJavaFile();
-			
-			//Service模块代码生成
-			JavaServiceCreator javaServiceCreator = new JavaServiceCreator(tableInfo, new MysqlTypeConvertor(), "Service","java");
-			javaServiceCreator.createJavaFile();
-			
-			//Controller模块代码生成
-			JavaControllerCreator javaControllerCreator = new JavaControllerCreator(tableInfo, new MysqlTypeConvertor(), "Controller","java");
-			javaControllerCreator.createJavaFile();
-			
-			//Mapper代码生成
-			XMLMapperCreatorMySQL xmlMapperCreatorMySQL = new XMLMapperCreatorMySQL(tableInfo, null, null, null, null, null, null);
-			xmlMapperCreatorMySQL.createXMLFile(tableInfo);
-			
 		}
 	}
 	
