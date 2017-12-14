@@ -10,40 +10,40 @@ The following is a little tutorial help you start quickly.
     
 If you want to create all module's code in all tables in db(is MySQL), you can write the following code:
 
-    import core.TableContext;
-    public class Test {
-      public static void main(String[] args) {
-        TableContext tableContext = new TableContext();
-        tableContext.loadDB();
-	tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
-        System.out.println("Create finished.");
-      }
-    }
+	import core.TableContext;
+	public class Test {
+		public static void main(String[] args) {
+			TableContext tableContext = new TableContext();
+			tableContext.loadDB();
+			tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
+			System.out.println("Create finished.");
+		}
+	}
    
    
 If you want to create all module's code in the tables you appointed and your db is MySQL, you can write the following code:
 
-    import core.TableContext;
-    public class Test {
-      public static void main(String[] args) {
-        TableContext tableContext = new TableContext();
-        tableContext.loadDB("table1", "table2");
-	tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
-        System.out.println("Create finished.");
-      }
-    }
+	import core.TableContext;
+	public class Test {
+		public static void main(String[] args) {
+			TableContext tableContext = new TableContext();
+			tableContext.loadDB("table1", "table2");
+			tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
+			System.out.println("Create finished.");
+		}
+	}
 
 If you want to create the module you appointed and all tables in db(is MySQL), you can write  the following code:
 
-    import core.TableContext;
-    public class Test {
-      public static void main(String[] args) {
-        TableContext tableContext = new TableContext();
-        tableContext.loadDB("table1", "table2");
-	tableContext.createAppointedModuleFiles(true, true, true, true, true, true, "Bean","Dao");
-        System.out.println("Create finished.");
-      }
-    }
+	import core.TableContext;
+	public class Test {
+		public static void main(String[] args) {
+			TableContext tableContext = new TableContext();
+			tableContext.loadDB("table1", "table2");
+			tableContext.createAppointedModuleFiles(true, true, true, true, true, true, "Bean","Dao");
+			System.out.println("Create finished.");
+		}
+	}
  
 Ps: the Class XMLMapperCreatorMySQL's constructor's params:
 
