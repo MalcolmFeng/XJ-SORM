@@ -15,7 +15,7 @@ If you want to create all module's code in all tables in db(is MySQL), you can w
       public static void main(String[] args) {
         TableContext tableContext = new TableContext();
         tableContext.loadDB();
-	    tableContext.createAppointedModuleFiles(new MysqlTypeConvertor(),new XMLMapperCreatorMySQL(true, true, true, true, true, true));
+	tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
         System.out.println("Create finished.");
       }
     }
@@ -28,7 +28,7 @@ If you want to create all module's code in the tables you appointed and your db 
       public static void main(String[] args) {
         TableContext tableContext = new TableContext();
         tableContext.loadDB("table1", "table2");
-	    tableContext.createAppointedModuleFiles(new MysqlTypeConvertor(),new XMLMapperCreatorMySQL(true, true, true, true, true, false));
+	tableContext.createAppointedModuleFiles(true, true, true, true, true, true);
         System.out.println("Create finished.");
       }
     }
@@ -40,7 +40,7 @@ If you want to create the module you appointed and all tables in db(is MySQL), y
       public static void main(String[] args) {
         TableContext tableContext = new TableContext();
         tableContext.loadDB("table1", "table2");
-	    tableContext.createAppointedModuleFiles(new MysqlTypeConvertor(),new XMLMapperCreatorMySQL(true, true, true, true, true, true), "Bean","Dao");
+	tableContext.createAppointedModuleFiles(true, true, true, true, true, true, "Bean","Dao");
         System.out.println("Create finished.");
       }
     }
@@ -48,6 +48,5 @@ If you want to create the module you appointed and all tables in db(is MySQL), y
 Ps: the Class XMLMapperCreatorMySQL's constructor's params:
 
     //(add, update, queryRows, queryAll, queryList, delete)
-    new XMLMapperCreatorMySQL(true, true, true, true, true, true)
     
 If true, then the Mapper module will create the function.
