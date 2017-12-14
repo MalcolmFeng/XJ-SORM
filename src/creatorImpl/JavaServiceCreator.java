@@ -17,6 +17,9 @@ public class JavaServiceCreator extends JavaCreator{
 		super(module, typeConvertor, suffix,tableInfo);
 	}
 
+	public JavaServiceCreator(TableInfo tableInfo, String module, String suffix) {
+		super(module, suffix,tableInfo);
+	}
 
 	@Override
 	public void declareateModule(TableInfo tableInfo, StringBuilder javaSrc) {

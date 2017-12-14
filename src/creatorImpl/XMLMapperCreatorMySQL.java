@@ -32,6 +32,10 @@ public class XMLMapperCreatorMySQL extends XMLMapperCreator{
 		super(tableInfo,xmlMapperCreator);
 	}
 	
+	public XMLMapperCreatorMySQL() {
+		super();
+	}
+	
 	@Override
 	public String createAddSrc() {
 		return "";

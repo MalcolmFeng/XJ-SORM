@@ -12,6 +12,7 @@ import utils.StringUtils;
  */
 public abstract class XMLMapperCreator {
 	
+	protected String tableName;
 	protected TableInfo tableInfo;
 	protected Boolean add;
 	protected Boolean update;
@@ -20,6 +21,16 @@ public abstract class XMLMapperCreator {
 	protected Boolean queryAll;
 	protected Boolean delete;
 	protected XMLMapperCreator xmlMapperCreator;
+	
+	public XMLMapperCreator() {
+		this.add = true;
+		this.update = true;
+		this.queryRows = true;
+		this.queryList = true;
+		this.queryAll = true;
+		this.delete = true;
+	}
+	
 	
 	public XMLMapperCreator(Boolean add,Boolean update,Boolean queryRows,Boolean queryAll,Boolean queryList,Boolean delete) {
 		this.add = add;
@@ -33,11 +44,21 @@ public abstract class XMLMapperCreator {
 	public XMLMapperCreator(TableInfo tableInfo,Boolean add,Boolean update,Boolean queryRows,Boolean queryAll,Boolean queryList,Boolean delete) {
 		this(add,update,queryRows,queryAll,queryList,delete);
 		this.tableInfo = tableInfo;
+		this.tableName=tableInfo.getTname();
 	}
 	
 	public XMLMapperCreator(TableInfo tableInfo,XMLMapperCreator xmlMapperCreator) {
 		this.tableInfo = tableInfo;
 		this.xmlMapperCreator = xmlMapperCreator;
+		
+		this.add = xmlMapperCreator.add;
+		this.update = xmlMapperCreator.update;
+		this.queryRows = xmlMapperCreator.queryRows;
+		this.queryList = xmlMapperCreator.queryList;
+		this.queryAll = xmlMapperCreator.queryAll;
+		this.delete = xmlMapperCreator.delete;
+		
+		this.tableName=tableInfo.getTname();
 	}
 	
 	

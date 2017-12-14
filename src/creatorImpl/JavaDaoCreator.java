@@ -13,6 +13,10 @@ import utils.StringUtils;
  */
 public class JavaDaoCreator extends JavaCreator{
 	
+	public JavaDaoCreator(TableInfo tableInfo, String module, String suffix) {
+		super(module, suffix,tableInfo);
+	}
+	
 	public JavaDaoCreator(TableInfo tableInfo, TypeConvertor typeConvertor, String module, String suffix) {
 		super(module, typeConvertor, suffix,tableInfo);
 	}

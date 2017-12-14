@@ -33,6 +33,9 @@ public class XMLMapperCreatorSQLServer extends XMLMapperCreator{
 		super(tableInfo,xmlMapperCreator);
 	}
 	
+	public XMLMapperCreatorSQLServer() {
+		super();
+	}
 
 	@Override
 	public String createAddSrc() {

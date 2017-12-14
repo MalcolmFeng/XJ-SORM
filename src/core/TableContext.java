@@ -11,11 +11,13 @@ import java.util.Map;
 import bean.ColumnInfo;
 import bean.TableInfo;
 import convertorImpl.MysqlTypeConvertor;
+import convertorImpl.SqlServerTypeConvertor;
 import creatorImpl.JavaBeanCreator;
 import creatorImpl.JavaControllerCreator;
 import creatorImpl.JavaDaoCreator;
 import creatorImpl.JavaServiceCreator;
 import creatorImpl.XMLMapperCreatorMySQL;
+import creatorImpl.XMLMapperCreatorSQLServer;
 import utils.StringUtils;
 
 /**
@@ -94,7 +96,20 @@ public class TableContext {
 	 * @param typeConvertor
 	 * @param modules 需要生成的模块
 	 */
-	public void createAppointedModuleFiles(TypeConvertor typeConvertor ,XMLMapperCreator xmlMapperCreator, String... modules) {
+	public void createAppointedModuleFiles(Boolean add, Boolean update, Boolean queryRows, Boolean queryAll, Boolean queryList, Boolean delete, String... modules) {
+		
+		//自动根据数据库驱动生成 相应的类型转换器和xml生成器
+		TypeConvertor typeConvertor = null;
+		XMLMapperCreator xmlMapperCreator = null;
+				
+		if( DBManager.conf.getDriver().toLowerCase().contains("mysql") ) {
+			typeConvertor = new MysqlTypeConvertor();
+			xmlMapperCreator = new XMLMapperCreatorMySQL(add, update, queryRows, queryAll, queryList, delete);
+		}else if( DBManager.conf.getDriver().toLowerCase().contains("sqlserver") ){
+			typeConvertor = new SqlServerTypeConvertor();
+			xmlMapperCreator = new XMLMapperCreatorSQLServer(add, update, queryRows, queryAll, queryList, delete);
+		}
+		
 		for(TableInfo tableInfo:tables.values()){
 			
 			//如果没有传，生成所有模块的代码文件
@@ -104,15 +119,15 @@ public class TableContext {
 				javaBeanCreator.createJavaFile();
 				
 				//Dao模块代码生成
-				JavaDaoCreator javaDaoCreator = new JavaDaoCreator(tableInfo, typeConvertor, "Dao","java");
+				JavaDaoCreator javaDaoCreator = new JavaDaoCreator(tableInfo, "Dao","java");
 				javaDaoCreator.createJavaFile();
 				
 				//Service模块代码生成
-				JavaServiceCreator javaServiceCreator = new JavaServiceCreator(tableInfo, typeConvertor, "Service","java");
+				JavaServiceCreator javaServiceCreator = new JavaServiceCreator(tableInfo, "Service","java");
 				javaServiceCreator.createJavaFile();
 				
 				//Controller模块代码生成
-				JavaControllerCreator javaControllerCreator = new JavaControllerCreator(tableInfo, typeConvertor, "Controller","java");
+				JavaControllerCreator javaControllerCreator = new JavaControllerCreator(tableInfo, "Controller","java");
 				javaControllerCreator.createJavaFile();
 				
 				//Mapper代码生成

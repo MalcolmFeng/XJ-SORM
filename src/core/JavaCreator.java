@@ -17,6 +17,14 @@ public abstract class JavaCreator {
 	
 	protected String tableNameFirstUpper;
 	
+	public JavaCreator(String module,  String suffix, TableInfo tableInfo) {
+		this.module = module;
+		this.suffix = suffix;
+		this.tableInfo = tableInfo;
+		
+		this.tableNameFirstUpper = StringUtils.changeFirstToUpper(tableInfo.getTname().toLowerCase());
+	}
+	
 	public JavaCreator(String module, TypeConvertor typeConvertor, String suffix, TableInfo tableInfo) {
 		this.module = module;
 		this.suffix = suffix;
