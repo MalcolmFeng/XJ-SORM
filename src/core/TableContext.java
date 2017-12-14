@@ -132,7 +132,7 @@ public class TableContext {
 				
 				//Mapper代码生成
 				XMLMapperCreator xmlMapperCreatorIn = new XMLMapperCreatorMySQL(tableInfo, xmlMapperCreator);
-				xmlMapperCreator.createXMLFile(tableInfo);
+				xmlMapperCreatorIn.createXMLFile(tableInfo);
 				
 				continue;
 			}

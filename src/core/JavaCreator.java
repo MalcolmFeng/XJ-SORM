@@ -15,6 +15,9 @@ public abstract class JavaCreator {
 	protected TableInfo tableInfo;
 	protected TypeConvertor typeConvertor;
 	
+	protected String moduleNameFirstUpper;
+	
+	//首字母大写的表名
 	protected String tableNameFirstUpper;
 	
 	public JavaCreator(String module,  String suffix, TableInfo tableInfo) {
@@ -22,7 +25,8 @@ public abstract class JavaCreator {
 		this.suffix = suffix;
 		this.tableInfo = tableInfo;
 		
-		this.tableNameFirstUpper = StringUtils.changeFirstToUpper(tableInfo.getTname().toLowerCase());
+		this.moduleNameFirstUpper = StringUtils.changeFirstToUpper(module.toLowerCase());
+		this.tableNameFirstUpper = StringUtils.changeFirstToUpper(tableInfo.getTname());
 	}
 	
 	public JavaCreator(String module, TypeConvertor typeConvertor, String suffix, TableInfo tableInfo) {
@@ -31,7 +35,8 @@ public abstract class JavaCreator {
 		this.tableInfo = tableInfo;
 		this.typeConvertor = typeConvertor;
 		
-		this.tableNameFirstUpper = StringUtils.changeFirstToUpper(tableInfo.getTname().toLowerCase());
+		this.moduleNameFirstUpper = StringUtils.changeFirstToUpper(module.toLowerCase());
+		this.tableNameFirstUpper = StringUtils.changeFirstToUpper(tableInfo.getTname());
 	}
 
 	public void createJavaFile(){

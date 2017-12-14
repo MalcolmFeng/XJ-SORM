@@ -36,7 +36,7 @@ public class JavaBeanCreator extends JavaCreator{
 	@Override
 	public void inclassSrc(TableInfo tableInfo, StringBuilder javaSrc,TypeConvertor typeConvertor) {
 		//类的开始
-		javaSrc.append("public class "+StringUtils.changeFirstToUpper(tableInfo.getTname())+ StringUtils.changeFirstToUpper(module.toLowerCase()) +" {\n\n");
+		javaSrc.append("public class "+ tableNameFirstUpper + moduleNameFirstUpper +" {\n\n");
 		
 		Map<String, ColumnInfo> columns = tableInfo.getColumns();
 		
@@ -45,7 +45,7 @@ public class JavaBeanCreator extends JavaCreator{
 			//进行类型转换
 			String javaFieldType = typeConvertor.databaseType2JavaType(columnInfo.getDataType());
 			//代码拼接
-			javaSrc.append("\tprivate "+javaFieldType+" "+columnInfo.getName()+";\n");
+			javaSrc.append("\tprivate "+javaFieldType+" "+ StringUtils.fieldTwoWordToLower(columnInfo.getName()) +";\n");
 		}
 		
 		//遍历所有的字段，进行 get set 代码拼接。
@@ -53,11 +53,11 @@ public class JavaBeanCreator extends JavaCreator{
 			//进行类型转换
 			String javaFieldType = typeConvertor.databaseType2JavaType(columnInfo.getDataType());
 			//代码拼接
-			javaSrc.append("\tpublic "+javaFieldType+" get"+StringUtils.changeFirstToUpper(columnInfo.getName())+"(){\n");		
-			javaSrc.append("\t\treturn "+columnInfo.getName()+";\n");
+			javaSrc.append("\tpublic "+javaFieldType+" get"+StringUtils.changeFirstToUpper(StringUtils.fieldTwoWordToLower(columnInfo.getName()))+"(){\n");		
+			javaSrc.append("\t\treturn "+ StringUtils.fieldTwoWordToLower(columnInfo.getName()) +";\n");
 			javaSrc.append("\t}\n");
-			javaSrc.append("\tpublic void set"+StringUtils.changeFirstToUpper(columnInfo.getName())+"("+javaFieldType+" "+columnInfo.getName()+"){\n");		
-			javaSrc.append("\t\tthis."+columnInfo.getName()+"="+columnInfo.getName()+";\n");
+			javaSrc.append("\tpublic void set"+StringUtils.changeFirstToUpper(StringUtils.fieldTwoWordToLower(columnInfo.getName()))+"("+javaFieldType+" "+ StringUtils.fieldTwoWordToLower(columnInfo.getName()) +"){\n");		
+			javaSrc.append("\t\tthis."+ StringUtils.fieldTwoWordToLower(columnInfo.getName()) +"="+StringUtils.fieldTwoWordToLower(columnInfo.getName())+";\n");
 			javaSrc.append("\t}\n\n");
 		}
 		//类结束

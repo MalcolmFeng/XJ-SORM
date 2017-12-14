@@ -40,7 +40,7 @@ public class JavaDaoCreator extends JavaCreator{
 	@Override
 	public void inclassSrc(TableInfo tableInfo, StringBuilder javaSrc,TypeConvertor convertor) {
 		//类的开始
-		javaSrc.append("public interface "+"I"+StringUtils.changeFirstToUpper(tableInfo.getTname())+ StringUtils.changeFirstToUpper(module.toLowerCase()) +" extends IBaseDao<"+ tableNameFirstUpper +"Bean>{\n\n");
+		javaSrc.append("public interface "+"I"+ tableNameFirstUpper + moduleNameFirstUpper +" extends IBaseDao<"+ tableNameFirstUpper +"Bean>{\n\n");
 			
 		
 		

@@ -92,7 +92,7 @@ public abstract class XMLMapperCreator {
 		
 		for (Map.Entry<String, ColumnInfo> temp : tableInfo.getColumns().entrySet() ) {
 			String columnsname = temp.getKey();
-			sBuffer.append("\t\t<result column=\""+ columnsname +"\" property=\""+ columnsname +"\"/>\n");
+			sBuffer.append("\t\t<result column=\""+ columnsname +"\" property=\""+ StringUtils.fieldTwoWordToLower(columnsname) +"\"/>\n");
 		}
 		sBuffer.append("\t</resultMap>\n");
 		

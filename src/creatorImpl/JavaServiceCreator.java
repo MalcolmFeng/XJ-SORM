@@ -44,14 +44,14 @@ public class JavaServiceCreator extends JavaCreator{
 	@Override
 	public void inclassSrc(TableInfo tableInfo, StringBuilder javaSrc,TypeConvertor convertor) {
 		//类的开始
-		javaSrc.append("public class "+StringUtils.changeFirstToUpper(tableInfo.getTname())+ StringUtils.changeFirstToUpper(module.toLowerCase()) +" extends BaseService<"+ tableNameFirstUpper +"Bean>{\n\n");
+		javaSrc.append("public class "+tableNameFirstUpper+ moduleNameFirstUpper +" extends BaseService<"+ tableNameFirstUpper +"Bean>{\n\n");
 			
 		javaSrc.append("\t@Autowired\n");
-		javaSrc.append("\tpublic I"+ tableNameFirstUpper +"Dao "+ tableNameFirstUpper.toLowerCase() +"Dao;\n\n");
+		javaSrc.append("\tpublic I"+ tableNameFirstUpper +"Dao "+ StringUtils.fieldTwoWordToLower(tableNameFirstUpper) +"Dao;\n\n");
  
 		javaSrc.append("\t@Override\n");
 		javaSrc.append("\tpublic IBaseDao getBaseDao() {\n");
-		javaSrc.append("\t\t return "+ tableNameFirstUpper.toLowerCase() +"Dao;\n");
+		javaSrc.append("\t\t return "+ StringUtils.fieldTwoWordToLower(tableNameFirstUpper) +"Dao;\n");
 		javaSrc.append("\t}\n\n");
 		
 		

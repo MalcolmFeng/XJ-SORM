@@ -14,4 +14,9 @@ public class StringUtils {
 		String str = word.toUpperCase();
 		return str.substring(0, 1)+word.substring(1);
 	}
+	
+	public static String fieldTwoWordToLower(String word){
+		String str = word.toLowerCase();
+		return str.substring(0, 2)+word.substring(2);
+	}
 }

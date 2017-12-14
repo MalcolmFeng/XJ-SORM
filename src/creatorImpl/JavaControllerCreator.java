@@ -44,11 +44,11 @@ public class JavaControllerCreator extends JavaCreator{
 	public void inclassSrc(TableInfo tableInfo, StringBuilder javaSrc,TypeConvertor convertor) {
 		
 		//类的开始
-		javaSrc.append("public class "+StringUtils.changeFirstToUpper(tableInfo.getTname())+ StringUtils.changeFirstToUpper(module.toLowerCase()) +" extends BaseController {\n\n");
+		javaSrc.append("public class "+ tableNameFirstUpper + moduleNameFirstUpper +" extends BaseController {\n\n");
 			
 		javaSrc.append("private static final Logger log = LoggerFactory.getLogger("+ tableNameFirstUpper +"Controller.class);\n\n");
 		javaSrc.append("\t@Autowired\n");
-		javaSrc.append("\tprivate "+ tableNameFirstUpper +"Service "+ tableNameFirstUpper.toLowerCase() +"Service;\n\n\n\n");
+		javaSrc.append("\tprivate "+ tableNameFirstUpper +"Service "+ StringUtils.fieldTwoWordToLower(tableNameFirstUpper) +"Service;\n\n\n\n");
 		
 		
 		//类结束
