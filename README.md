@@ -1,5 +1,7 @@
 # XJ-SORM
 
+（一个自动代码生成器，基于 spring mvc mybatis 和关系型数据库项目。可以自动根据关系型数据库表结构，自动生成项目的 Bean、Mapper、Service、Controller 增删改查的基本代码）
+
 An AutoCodeCreator Framework based on Spring Framework and Mybatis and some relationship database.
 
 This is a Super-ORM(Object Relationship Mapper) which can automatically create directory and its code if your Dynamic web project based on SSM(Spring/Spring web mvc/Mybatis) and some relationship databases.
